@@ -34,11 +34,33 @@ namespace CSUtilities.Extensions
 		/// <summary>
 		/// Adds a flag value to enum.
 		/// </summary>
+		/// <summary>
+		/// Adds a flag value to enum.
+		/// </summary>
 		public static void AddFlag<T>(ref this T value, T flag)
 			where T : struct, Enum
 		{
-			Type type = getEnumType(Convert.GetTypeCode(value));
-			value = (T)Convert.ChangeType((Convert.ToUInt64(value) | Convert.ToUInt64(flag)), type);
+			switch (value.GetTypeCode())
+			{
+				case TypeCode.SByte:
+				case TypeCode.Int16:
+				case TypeCode.Int32:
+				case TypeCode.Int64:
+					long lValue = Convert.ToInt64(value);
+					long lFlag = Convert.ToInt64(flag);
+					value = (T)Enum.ToObject(typeof(T), lValue | lFlag);
+					break;
+				case TypeCode.Byte:
+				case TypeCode.UInt16:
+				case TypeCode.UInt32:
+				case TypeCode.UInt64:
+					ulong uValue = Convert.ToUInt64(value);
+					ulong uFlag = Convert.ToUInt64(flag);
+					value = (T)Enum.ToObject(typeof(T), uValue | uFlag);
+					break;
+				default:
+					throw new InvalidOperationException("Unknown enum type.");
+			}
 		}
 
 		/// <summary>
@@ -47,8 +69,27 @@ namespace CSUtilities.Extensions
 		public static void RemoveFlag<T>(ref this T value, T flag)
 			where T : struct, Enum
 		{
-			Type type = getEnumType(Convert.GetTypeCode(value));
-			value = (T)Convert.ChangeType((Convert.ToUInt64(value) & ~Convert.ToUInt64(flag)), type);
+			switch (value.GetTypeCode())
+			{
+				case TypeCode.SByte:
+				case TypeCode.Int16:
+				case TypeCode.Int32:
+				case TypeCode.Int64:
+					long lValue = Convert.ToInt64(value);
+					long lFlag = Convert.ToInt64(flag);
+					value = (T)Enum.ToObject(typeof(T), lValue & ~lFlag);
+					break;
+				case TypeCode.Byte:
+				case TypeCode.UInt16:
+				case TypeCode.UInt32:
+				case TypeCode.UInt64:
+					ulong uValue = Convert.ToUInt64(value);
+					ulong uFlag = Convert.ToUInt64(flag);
+					value = (T)Enum.ToObject(typeof(T), uValue & ~uFlag);
+					break;
+				default:
+					throw new InvalidOperationException("Unknown enum type.");
+			}
 		}
 
 		/// <summary>
@@ -147,51 +188,6 @@ namespace CSUtilities.Extensions
 
 			FieldInfo fi = type.GetField(value.ToString());
 			return fi.GetCustomAttribute<StringValueAttribute>()?.Value;
-		}
-
-		private static Type getEnumType(TypeCode code)
-		{
-			switch (code)
-			{
-				case TypeCode.Boolean:
-					return typeof(bool);
-				case TypeCode.Byte:
-					return typeof(byte);
-				case TypeCode.Char:
-					return typeof(char);
-				case TypeCode.DateTime:
-					return typeof(DateTime);
-				case TypeCode.DBNull:
-					return typeof(DBNull);
-				case TypeCode.Decimal:
-					return typeof(decimal);
-				case TypeCode.Double:
-					return typeof(double);
-				case TypeCode.Empty:
-					return null;
-				case TypeCode.Int16:
-					return typeof(short);
-				case TypeCode.Int32:
-					return typeof(int);
-				case TypeCode.Int64:
-					return typeof(long);
-				case TypeCode.Object:
-					return typeof(object);
-				case TypeCode.SByte:
-					return typeof(sbyte);
-				case TypeCode.Single:
-					return typeof(Single);
-				case TypeCode.String:
-					return typeof(string);
-				case TypeCode.UInt16:
-					return typeof(UInt16);
-				case TypeCode.UInt32:
-					return typeof(UInt32);
-				case TypeCode.UInt64:
-					return typeof(UInt64);
-			}
-
-			return null;
 		}
 	}
 }

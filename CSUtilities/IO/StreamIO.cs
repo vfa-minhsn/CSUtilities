@@ -257,7 +257,7 @@ namespace CSUtilities.IO
 		/// Read a <see cref="short"/> value form the stream.
 		/// </summary>
 		/// <returns></returns>
-		public short ReadShort()
+		public virtual short ReadShort()
 		{
 			return ReadShort<DefaultEndianConverter>();
 		}
@@ -279,7 +279,7 @@ namespace CSUtilities.IO
 		/// Read a <see cref="ushort"/> value form the stream.
 		/// </summary>
 		/// <returns></returns>
-		public ushort ReadUShort()
+		public virtual ushort ReadUShort()
 		{
 			return ReadUShort<DefaultEndianConverter>();
 		}
@@ -301,7 +301,7 @@ namespace CSUtilities.IO
 		/// Read a <see cref="int"/> value form the stream.
 		/// </summary>
 		/// <returns></returns>
-		public int ReadInt()
+		public virtual int ReadInt()
 		{
 			return ReadInt<DefaultEndianConverter>();
 		}
@@ -323,7 +323,7 @@ namespace CSUtilities.IO
 		/// Read a <see cref="uint"/> value form the stream.
 		/// </summary>
 		/// <returns></returns>
-		public uint ReadUInt()
+		public virtual uint ReadUInt()
 		{
 			return ReadUInt<DefaultEndianConverter>();
 		}
@@ -345,7 +345,7 @@ namespace CSUtilities.IO
 		/// Read a <see cref="float"/> value form the stream.
 		/// </summary>
 		/// <returns></returns>
-		public float ReadSingle()
+		public virtual float ReadSingle()
 		{
 			return ReadSingle<DefaultEndianConverter>();
 		}
@@ -367,7 +367,7 @@ namespace CSUtilities.IO
 		/// Read a <see cref="double"/> value form the stream.
 		/// </summary>
 		/// <returns></returns>
-		public double ReadDouble()
+		public virtual double ReadDouble()
 		{
 			return ReadDouble<DefaultEndianConverter>();
 		}
@@ -389,7 +389,7 @@ namespace CSUtilities.IO
 		/// Read a <see cref="long"/> value form the stream.
 		/// </summary>
 		/// <returns></returns>
-		public long ReadLong()
+		public virtual long ReadLong()
 		{
 			return ReadLong<DefaultEndianConverter>();
 		}
@@ -411,7 +411,7 @@ namespace CSUtilities.IO
 		/// Read a <see cref="ulong"/> value form the stream.
 		/// </summary>
 		/// <returns></returns>
-		public ulong ReadULong()
+		public virtual ulong ReadULong()
 		{
 			return ReadULong<DefaultEndianConverter>();
 		}
